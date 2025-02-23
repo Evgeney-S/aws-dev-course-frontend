@@ -9,13 +9,13 @@ class InfrastructureStack extends Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
 
-    const websiteBucket = new Bucket(this, 'XXXXXXXXXXXXXXXX', {
+    const websiteBucket = new Bucket(this, 'AWSDevCourseFrontendBucket', {
       accessControl: BucketAccessControl.PRIVATE,
       enforceSSL: true,
       versioned: true,
     });
 
-    const distribution = new Distribution(this, 'Distribution', {
+    const distribution = new Distribution(this, 'AWSDevCourseFrontendDistribution', {
       defaultBehavior: {
         origin: S3BucketOrigin.withOriginAccessControl(websiteBucket),
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -30,7 +30,7 @@ class InfrastructureStack extends Stack {
       ],
     });
 
-    new BucketDeployment(this, 'S3BucketForRSSchoolTaskXXX', {
+    new BucketDeployment(this, 'AWSDevCourseFrontendBucketDeployment', {
       sources: [Source.asset(path.join(__dirname, '../../dist'))],
       destinationBucket: websiteBucket,
       distribution,
