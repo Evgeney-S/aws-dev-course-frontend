@@ -3,6 +3,7 @@ const { Bucket, BucketAccessControl } = require('aws-cdk-lib/aws-s3');
 const { Distribution, ViewerProtocolPolicy } = require('aws-cdk-lib/aws-cloudfront');
 const { S3BucketOrigin } = require('aws-cdk-lib/aws-cloudfront-origins');
 const { BucketDeployment, Source } = require('aws-cdk-lib/aws-s3-deployment');
+const { AllowedMethods, CachedMethods } = require('aws-cdk-lib/aws-cloudfront');
 const path = require('path');
 
 class InfrastructureStack extends Stack {
@@ -19,6 +20,8 @@ class InfrastructureStack extends Stack {
       defaultBehavior: {
         origin: S3BucketOrigin.withOriginAccessControl(websiteBucket),
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        allowedMethods: AllowedMethods.ALLOW_ALL,
+        cachedMethods: CachedMethods.CACHE_GET_HEAD_OPTIONS,
       },
       defaultRootObject: 'index.html',
       errorResponses: [
