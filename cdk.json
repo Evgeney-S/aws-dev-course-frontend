@@ -1,5 +1,5 @@
 {
-  "app": "node bin/infrastructure.js",
+  "app": "node infrastructure/bin/infrastructure.js",
   "watch": {
     "include": [
       "**"
