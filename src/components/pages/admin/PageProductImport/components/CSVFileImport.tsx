@@ -32,13 +32,22 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
         throw new Error("No file selected to upload");
       }
 
-      const response = await axios({
+      const requestParams = {
         method: "GET",
         url,
         params: {
-          name: encodeURIComponent(file.name),
+            name: encodeURIComponent(file.name),
         },
-      });
+        headers: {},
+      };
+      if(localStorage.getItem("authorization_token")){
+        requestParams.headers = {
+            Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+        };
+      };
+      
+      const response = await axios(requestParams);
+      
       console.log("File to upload: ", file.name);
       console.log("Uploading to: ", response.data);
       const uploadUrl = response.data;
@@ -52,6 +61,7 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
       console.error("There was an error on uploading the file", error);
     }
   };
+
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
