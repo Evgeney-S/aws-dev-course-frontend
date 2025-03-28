@@ -29,7 +29,12 @@ export function useAvailableProduct(id?: string) {
     ["product", { id }],
     async () => {
       const res = await axios.get<AvailableProduct>(
-        `${API_PATHS.product}/products/${id}`
+        `${API_PATHS.product}/products/${id}`, 
+        // {
+        //     headers: {
+        //         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+        //     }
+        // }
       );
       return res.data;
     },
