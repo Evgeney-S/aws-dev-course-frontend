@@ -20,10 +20,12 @@ axios.interceptors.response.use(
         const rsponseStatus = error.response.status;
 
         if(rsponseStatus === 400){
-            alert(error.response.data?.data);
+            // alert(error.response.data?.data);
+            console.log(error.response.data?.data);
         }
         if(rsponseStatus === 403 || rsponseStatus === 401){
-            alert(error.response.data?.message);
+            // alert(error.response.data?.message);
+            console.log(error.response.data?.message);
         }
 
         console.log("Error:", error);
